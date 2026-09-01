@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable, of } from 'rxjs';
@@ -19,9 +19,10 @@ export class DetalhesComponent implements OnInit {
 
   filme: Observable<Filme> = of();
   private filmeService = inject(FilmeService);
+  private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    const id = 1;
+    const id = this.route.snapshot.params['id'];
     this.filme = this.filmeService.buscarSessoesPorFilmeId(id);
   }
 }
